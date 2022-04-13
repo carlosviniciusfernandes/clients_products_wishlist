@@ -1,0 +1,4 @@
+fastapi
+uvicorn[standard]
+ptvsd
+fastapi-users[sqlalchemy2]

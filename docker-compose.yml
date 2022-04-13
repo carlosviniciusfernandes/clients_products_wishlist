@@ -1,0 +1,22 @@
+version: '2'
+
+networks:
+  local_network:
+      driver: bridge
+
+services:
+  backend:
+      image: api:0.2
+      entrypoint: ["bash", "start.sh"]
+      container_name: backend
+      volumes:
+        - ./app:/app
+        - ./env:/app/env
+      restart: unless-stopped
+      environment:
+        PYTHONUNBUFFERED: 1
+      ports:
+        - 8000:8000
+        - 5678:5678
+      networks:
+        - local_network
