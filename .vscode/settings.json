@@ -1,6 +1,6 @@
 {
-    "python.linting.pylamaEnabled": false,
-    "python.linting.pylintEnabled": true,
+    "python.linting.pylamaEnabled": true,
+    "python.linting.pylintEnabled": false,
     "python.linting.enabled": true,
-    "python.defaultInterpreterPath": "${workspaceFolder}/env/bin/python3.8"
+    "python.defaultInterpreterPath": "./app/env/bin/python"
 }

@@ -6,17 +6,32 @@ networks:
 
 services:
   backend:
-      image: api:0.2
+      image: api:0.4
       entrypoint: ["bash", "start.sh"]
       container_name: backend
       volumes:
         - ./app:/app
-        - ./env:/app/env
+        - ./app/env:/app/env
       restart: unless-stopped
       environment:
         PYTHONUNBUFFERED: 1
+        REMOTE_DEBUGGER: 1 # Zero to disable it
       ports:
         - 8000:8000
         - 5678:5678
       networks:
         - local_network
+
+  postgres:
+    image: postgres:11-alpine
+    container_name: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "asdf1234"
+    networks:
+      - local_network
