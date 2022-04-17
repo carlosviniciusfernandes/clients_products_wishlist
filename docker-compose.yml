@@ -6,7 +6,8 @@ networks:
 
 services:
   backend:
-      image: api:0.5
+      build: ./app/.
+      image: api:0.6
       entrypoint: ["bash", "start.sh"]
       container_name: backend
       volumes:
