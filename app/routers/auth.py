@@ -10,7 +10,7 @@ from schemas.user import User, UserCreate, UserUpdate, UserDB
 
 bearer_transport = BearerTransport(tokenUrl="auth/jwt/login")
 
-SECRET = os.environ["JWT_SECRET"]
+SECRET = os.environ.get("JWT_SECRET")
 
 
 def get_jwt_strategy() -> JWTStrategy:
@@ -57,7 +57,6 @@ register_router = set_fastapi_users_router(
     ["auth"]
 )
 
-
 reset_password_router = set_fastapi_users_router(
     fastapi_users.get_reset_password_router(),
     "/auth",
@@ -87,4 +86,8 @@ routers = [
 
 def set_auth_routers(app):
     for router in routers:
-        app.include_router(router)
+        app.include_router(
+            router,
+            prefix=router.prefix,
+            tags=router.tags
+        )

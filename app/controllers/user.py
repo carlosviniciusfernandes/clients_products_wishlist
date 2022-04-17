@@ -10,7 +10,7 @@ from database import get_async_session
 from schemas.user import UserCreate, UserDB
 from models.user import User as UserTable
 
-SECRET = os.environ["JWT_SECRET"]
+SECRET = os.environ.get("JWT_SECRET")
 
 
 class UserManager(BaseUserManager[UserCreate, UserDB]):

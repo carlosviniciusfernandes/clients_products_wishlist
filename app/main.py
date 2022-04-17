@@ -7,7 +7,7 @@ app = FastAPI(title="Wishlist API")
 set_auth_routers(app)
 
 
-if os.environ["REMOTE_DEBUGGER"]:
+if os.environ.get("REMOTE_DEBUGGER", False):
     try:
         import ptvsd
         ptvsd.enable_attach(address=("0.0.0.0", 5678))

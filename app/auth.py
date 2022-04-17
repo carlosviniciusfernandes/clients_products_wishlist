@@ -8,7 +8,7 @@ from schemas.user import User, UserCreate, UserUpdate, UserDB
 
 bearer_transport = BearerTransport(tokenUrl="auth/jwt/login")
 
-SECRET = os.environ["JWT_SECRET"]
+SECRET = os.environ.get("JWT_SECRET")
 
 
 def get_jwt_strategy() -> JWTStrategy:
