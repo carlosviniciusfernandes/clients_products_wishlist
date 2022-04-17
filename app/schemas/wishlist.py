@@ -1,5 +1,7 @@
-from typing import List
-from pydantic import BaseModel
+from typing import List, Optional
+from pydantic import BaseModel, ValidationError, validator
+
+from controllers.product import ProductController
 
 
 class WishlistItemBase(BaseModel):
@@ -8,15 +10,41 @@ class WishlistItemBase(BaseModel):
 
 
 class WishlistItemCreate(WishlistItemBase):
-    pass
+    @validator("product_id")
+    def validate_if_product_exists(cls, value):
+        if ProductController().does_product_exists(value):
+            return value
+        else:
+            raise ValidationError
 
 
-class WishlistItem(WishlistItemCreate):
-    id: int
+class WishlistItem(WishlistItemBase):
+    id: str
 
     class Config:
         orm_mode = True
 
 
-class Wishlist(BaseModel):
-    __root__: List[WishlistItem]
+class WishlistItemDetailed(BaseModel):
+    id: str
+    title: str
+    brand: str
+    image: str
+    price: float
+    reviewScore: Optional[str]
+
+    def __init__(self, wishlist_item: WishlistItem):
+        item_details = ProductController().does_product_exists(wishlist_item.product_id)
+        if item_details:
+            for detail, value in item_details.items():
+                self.__dict__[detail] = value
+
+    class Config:
+        orm_mode = True
+
+
+class WishlistDetailed(BaseModel):
+    __root__: List[WishlistItemDetailed]
+
+    class Config:
+        orm_mode = True

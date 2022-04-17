@@ -11,3 +11,6 @@ psycopg2
 asyncpg
 alembic
 fastapi-users[sqlalchemy2]
+
+# Misc
+requests
