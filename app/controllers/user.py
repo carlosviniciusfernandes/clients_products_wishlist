@@ -6,7 +6,7 @@ from fastapi_users import BaseUserManager, InvalidPasswordException
 from fastapi_users.db import SQLAlchemyUserDatabase
 from fastapi_users_db_sqlalchemy import AsyncSession
 
-from database import get_async_session
+from database import async_session_maker
 from schemas.user import UserCreate, UserDB
 from models.user import User as UserTable
 
@@ -57,6 +57,11 @@ class UserManager(BaseUserManager[UserCreate, UserDB]):
 
     async def on_after_reset_password(self, user: UserDB, request: Optional[Request] = None):
         print(f"User {user.id} has reset their password.")
+
+
+async def get_async_session():
+    async with async_session_maker() as session:
+        yield session
 
 
 async def get_user_db(session: AsyncSession = Depends(get_async_session)):

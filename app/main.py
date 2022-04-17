@@ -2,9 +2,11 @@ import os
 from fastapi import FastAPI
 
 from routers.auth import set_auth_routers
+from routers.wishlist import set_wishlist_router
 
 app = FastAPI(title="Wishlist API")
 set_auth_routers(app)
+set_wishlist_router(app)
 
 
 if os.environ.get("REMOTE_DEBUGGER", False):
