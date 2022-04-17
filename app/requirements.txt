@@ -1,4 +1,13 @@
+# FastAPI
 fastapi
 uvicorn[standard]
+
+# Lyting and debugging
+pylama
 ptvsd
+
+# Database related
+psycopg2
+asyncpg
+alembic
 fastapi-users[sqlalchemy2]

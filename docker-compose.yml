@@ -6,16 +6,17 @@ networks:
 
 services:
   backend:
-      image: api:0.4
+      image: api:0.5
       entrypoint: ["bash", "start.sh"]
       container_name: backend
       volumes:
         - ./app:/app
-        - ./app/env:/app/env
       restart: unless-stopped
       environment:
         PYTHONUNBUFFERED: 1
         REMOTE_DEBUGGER: 1 # Zero to disable it
+      env_file:
+        - ./.env
       ports:
         - 8000:8000
         - 5678:5678
@@ -31,7 +32,8 @@ services:
       - ./postgres/data:/var/lib/postgresql/data
     restart: unless-stopped
     environment:
-      POSTGRES_USER: "admin"
-      POSTGRES_PASSWORD: "asdf1234"
+      POSTGRES_DB: db
+      POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: 'asdf1234'
     networks:
       - local_network

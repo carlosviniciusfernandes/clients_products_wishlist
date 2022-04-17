@@ -1,7 +1,11 @@
 import os
 from fastapi import FastAPI
 
+from routers.auth import set_auth_routers
+
 app = FastAPI(title="Wishlist API")
+set_auth_routers(app)
+
 
 if os.environ["REMOTE_DEBUGGER"]:
     try:
@@ -10,8 +14,3 @@ if os.environ["REMOTE_DEBUGGER"]:
         print("\nAttached remote debugger on http://0.0.0.0:5678/")
     except Exception:
         raise Exception("Something went wrong - Could not attach the remote debugger")
-
-
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}

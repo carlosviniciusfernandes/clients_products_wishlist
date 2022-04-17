@@ -2,5 +2,17 @@
     "python.linting.pylamaEnabled": true,
     "python.linting.pylintEnabled": false,
     "python.linting.enabled": true,
-    "python.defaultInterpreterPath": "./app/env/bin/python"
+    "python.defaultInterpreterPath": "./env/bin/python",
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "172.17.0.1",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "postgres",
+            "database": "db",
+            "username": "admin",
+            "password": "asdf1234"
+        }
+    ]
 }
